@@ -1,0 +1,16 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: var(--font-figtree), system-ui, sans-serif;
+  --color-ink: #10231c;
+  --color-paper: #f3f6f4;
+  --color-leaf: #0e7c5a;
+  --color-amber: #c77700;
+  --color-alert: #b3261e;
+}
+
+body { background: var(--color-paper); color: var(--color-ink); }
+:focus-visible { outline: 2px solid var(--color-leaf); outline-offset: 2px; }
+.input { @apply w-full rounded-md border border-ink/20 bg-white px-3 py-2 text-sm; }
+.btn { @apply rounded-md bg-leaf px-4 py-2 text-sm font-semibold text-white hover:bg-leaf/90 disabled:opacity-50; }
+.btn-quiet { @apply rounded-md border border-ink/20 px-3 py-1.5 text-sm hover:bg-ink/5; }

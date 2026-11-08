@@ -1,0 +1,40 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model Medicine {
+  id           String     @id @default(cuid())
+  name         String
+  sku          String     @unique
+  category     String
+  priceCents   Int
+  stock        Int
+  reorderLevel Int        @default(10)
+  expiry       DateTime
+  createdAt    DateTime   @default(now())
+  saleItems    SaleItem[]
+}
+
+model Sale {
+  id         String     @id @default(cuid())
+  totalCents Int
+  createdAt  DateTime   @default(now())
+  items      SaleItem[]
+}
+
+model SaleItem {
+  id         String    @id @default(cuid())
+  saleId     String
+  sale       Sale      @relation(fields: [saleId], references: [id], onDelete: Cascade)
+  medicineId String?
+  medicine   Medicine? @relation(fields: [medicineId], references: [id], onDelete: SetNull)
+  name       String
+  qty        Int
+  priceCents Int
+}
